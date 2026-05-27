@@ -101,16 +101,16 @@ function App() {
         chat.id === activeChatId
 
           ? {
-              ...chat,
+            ...chat,
 
-              title:
-                isFirstMessage
-                  ? generateTitle(prompt)
-                  : chat.title,
+            title:
+              isFirstMessage
+                ? generateTitle(prompt)
+                : chat.title,
 
-              messages:
-                updatedMessages
-            }
+            messages:
+              updatedMessages
+          }
 
           : chat
       )
@@ -132,7 +132,7 @@ function App() {
       // API CALL
       const response = await fetch(
 
-        import.meta.env.VITE_API_URL,
+        "https://wwfl5icj62.execute-api.us-east-1.amazonaws.com/prod/chat",
 
         {
           method: "POST",
@@ -289,10 +289,9 @@ function App() {
       <div
         className={`
           fixed md:static top-0 z-50 h-screen transition-all duration-300
-          ${
-            sidebarOpen
-              ? "left-0"
-              : "-left-full"
+          ${sidebarOpen
+            ? "left-0"
+            : "-left-full"
           }
           md:left-0
         `}
