@@ -23,12 +23,12 @@ function App() {
   const [activeChatId, setActiveChatId] =
     useState(1);
 
-  // ACTIVE CHAT
+  // ✅ Active Chat
   const activeChat = chats.find(
     (chat) => chat.id === activeChatId
   );
 
-  // GENERATE TITLE
+  // ✅ Dynamic Chat Title
   const generateTitle = (text) => {
 
     return (
@@ -39,7 +39,7 @@ function App() {
     );
   };
 
-  // BUILD CONTEXT
+  // ✅ Build Context Messages
   const buildMessages = (messages) => {
 
     return messages
@@ -65,7 +65,7 @@ function App() {
       }));
   };
 
-  // SEND PROMPT
+  // 🚀 Send Prompt
   const sendPrompt = async (prompt) => {
 
     if (!prompt.trim() || loading)
@@ -77,7 +77,7 @@ function App() {
     const isFirstMessage =
       currentMessages.length === 0;
 
-    // INSTANT UI UPDATE
+    // ✅ Instant UI Update
     const updatedMessages = [
 
       ...currentMessages,
@@ -93,7 +93,7 @@ function App() {
       }
     ];
 
-    // UPDATE CHAT
+    // ✅ Update UI
     setChats((prev) =>
 
       prev.map((chat) =>
@@ -101,16 +101,16 @@ function App() {
         chat.id === activeChatId
 
           ? {
-            ...chat,
+              ...chat,
 
-            title:
-              isFirstMessage
-                ? generateTitle(prompt)
-                : chat.title,
+              title:
+                isFirstMessage
+                  ? generateTitle(prompt)
+                  : chat.title,
 
-            messages:
-              updatedMessages
-          }
+              messages:
+                updatedMessages
+            }
 
           : chat
       )
@@ -120,7 +120,7 @@ function App() {
 
     try {
 
-      // PAYLOAD
+      // 🚀 Payload
       const payload = {
 
         messages:
@@ -129,10 +129,15 @@ function App() {
           )
       };
 
-      // API CALL
+      console.log(
+        "FINAL PAYLOAD:",
+        payload
+      );
+
+      // 🚀 API Call
       const response = await fetch(
 
-        "https://wwfl5icj62.execute-api.us-east-1.amazonaws.com/prod/chat",
+        import.meta.env.VITE_API_URL,
 
         {
           method: "POST",
@@ -148,7 +153,7 @@ function App() {
         }
       );
 
-      // ERROR
+      // ❌ API Error
       if (!response.ok) {
 
         throw new Error(
@@ -159,7 +164,7 @@ function App() {
       const data =
         await response.json();
 
-      // PARSE RESPONSE
+      // ✅ Parse Lambda Response
       const parsed =
         data.body
 
@@ -176,7 +181,7 @@ function App() {
         parsed.response ||
         "No response generated";
 
-      // UPDATE RESPONSE
+      // ✅ Replace Thinking...
       setChats((prev) =>
 
         prev.map((chat) => {
@@ -209,7 +214,7 @@ function App() {
 
       console.error(error);
 
-      // ERROR UI
+      // ❌ Error UI
       setChats((prev) =>
 
         prev.map((chat) => {
@@ -245,7 +250,7 @@ function App() {
     }
   };
 
-  // CREATE NEW CHAT
+  // 🚀 Create New Chat
   const createNewChat = () => {
 
     const newChat = {
@@ -271,13 +276,36 @@ function App() {
 
   return (
 
-    <div className="h-screen flex bg-[#020817] bg-[radial-gradient(circle_at_top,#172554_0%,#020817_45%)] text-white overflow-hidden">
+    <div
+      className="
+        h-screen
+        flex
 
-      {/* MOBILE OVERLAY */}
+        bg-[#020817]
+
+        bg-[radial-gradient(circle_at_top,#172554_0%,#020817_45%)]
+
+        text-white
+
+        overflow-hidden
+      "
+    >
+
+      {/* 🚀 MOBILE OVERLAY */}
       {sidebarOpen && (
 
         <div
-          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 md:hidden"
+          className="
+            fixed
+            inset-0
+
+            bg-black/60
+            backdrop-blur-sm
+
+            z-40
+
+            md:hidden
+          "
           onClick={() =>
             setSidebarOpen(false)
           }
@@ -285,20 +313,29 @@ function App() {
 
       )}
 
-      {/* SIDEBAR */}
+      {/* 🚀 SIDEBAR */}
       <div
         className={`
-          fixed md:static top-0 z-50 h-screen transition-all duration-300
-          ${sidebarOpen
-            ? "left-0"
-            : "-left-full"
+          fixed
+          md:static
+          top-0
+          z-50
+          h-screen
+
+          transition-all
+          duration-300
+
+          ${
+            sidebarOpen
+              ? "left-0"
+              : "-left-full"
           }
+
           md:left-0
         `}
       >
 
         <Sidebar
-
           chats={chats}
 
           activeChatId={
@@ -319,18 +356,66 @@ function App() {
 
       </div>
 
-      {/* MAIN CONTENT */}
-      <div className="flex-1 flex flex-col h-screen overflow-hidden">
+      {/* 🚀 MAIN CONTENT */}
+      <div
+        className="
+          flex-1
+          flex
+          flex-col
 
-        {/* HEADER */}
-        <div className="h-16 border-b border-white/10 bg-white/[0.03] backdrop-blur-xl flex items-center justify-between px-4 md:px-6 shadow-lg shadow-black/20">
+          h-screen
+
+          overflow-hidden
+        "
+      >
+
+        {/* 🚀 HEADER */}
+        <div
+          className="
+            h-16
+
+            border-b
+            border-white/10
+
+            bg-white/[0.03]
+
+            backdrop-blur-xl
+
+            flex
+            items-center
+            justify-between
+
+            px-4
+            md:px-6
+
+            shadow-lg
+            shadow-black/20
+          "
+        >
 
           {/* LEFT */}
-          <div className="flex items-center gap-3">
+          <div
+            className="
+              flex
+              items-center
+              gap-3
+            "
+          >
 
             {/* MOBILE MENU */}
             <button
-              className="md:hidden w-10 h-10 rounded-xl hover:bg-white/10 transition-all"
+              className="
+                md:hidden
+
+                w-10
+                h-10
+
+                rounded-xl
+
+                hover:bg-white/10
+
+                transition-all
+              "
               onClick={() =>
                 setSidebarOpen(true)
               }
@@ -341,7 +426,16 @@ function App() {
             </button>
 
             {/* TITLE */}
-            <h1 className="text-sm md:text-lg font-semibold truncate">
+            <h1
+              className="
+                text-sm
+                md:text-lg
+
+                font-semibold
+
+                truncate
+              "
+            >
 
               {activeChat?.title ||
                 "AI Assistant"}
@@ -351,9 +445,41 @@ function App() {
           </div>
 
           {/* STATUS */}
-          <div className="flex items-center gap-2 text-green-400 text-xs md:text-sm bg-green-500/10 px-3 py-1.5 rounded-full border border-green-500/20">
+          <div
+            className="
+              flex
+              items-center
+              gap-2
 
-            <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+              text-green-400
+
+              text-xs
+              md:text-sm
+
+              bg-green-500/10
+
+              px-3
+              py-1.5
+
+              rounded-full
+
+              border
+              border-green-500/20
+            "
+          >
+
+            <span
+              className="
+                w-2
+                h-2
+
+                rounded-full
+
+                bg-green-400
+
+                animate-pulse
+              "
+            />
 
             Online
 
@@ -361,26 +487,83 @@ function App() {
 
         </div>
 
-        {/* CHAT AREA */}
-        <div className="flex-1 overflow-y-auto scroll-smooth px-2 md:px-6 py-8 custom-scrollbar">
+        {/* 🚀 CHAT AREA */}
+        <div
+          className="
+            flex-1
+
+            overflow-y-auto
+
+            px-2
+            md:px-6
+
+            py-6
+
+            scroll-smooth
+          "
+        >
 
           {activeChat?.messages
             ?.length === 0 ? (
 
-            // LANDING PAGE
-            <div className="h-full flex items-center justify-center px-6">
+            // 🚀 LANDING PAGE
+            <div
+              className="
+                h-full
 
-              <div className="text-center">
+                flex
+                items-center
+                justify-center
+
+                px-6
+              "
+            >
+
+              <div
+                className="
+                  text-center
+                "
+              >
 
                 {/* TITLE */}
-                <h1 className="text-6xl md:text-8xl font-bold bg-gradient-to-r from-indigo-400 via-blue-400 to-cyan-400 bg-clip-text text-transparent tracking-tight">
+                <h1
+                  className="
+                    text-6xl
+                    md:text-8xl
+
+                    font-bold
+
+                    bg-gradient-to-r
+                    from-indigo-400
+                    via-blue-400
+                    to-cyan-400
+
+                    bg-clip-text
+                    text-transparent
+
+                    tracking-tight
+                  "
+                >
 
                   AI Assistant
 
                 </h1>
 
                 {/* SUBTITLE */}
-                <p className="mt-6 text-gray-400 text-lg md:text-2xl max-w-xl leading-9">
+                <p
+                  className="
+                    mt-6
+
+                    text-gray-400
+
+                    text-lg
+                    md:text-2xl
+
+                    max-w-xl
+
+                    leading-9
+                  "
+                >
 
                   Ask anything to start
                   the conversation.
@@ -393,32 +576,33 @@ function App() {
 
           ) : (
 
-            // CHATBOX
-            <div className="max-w-[1200px] mx-auto w-full">
-
-              <ChatBox
-                messages={
-                  activeChat?.messages || []
-                }
-              />
-
-            </div>
+            // 🚀 CHATBOX
+            <ChatBox
+              messages={
+                activeChat?.messages || []
+              }
+            />
 
           )}
 
         </div>
 
-        {/* INPUT */}
-        <div className="border-t border-white/10 bg-white/[0.03] backdrop-blur-xl px-2 md:px-4 py-4">
+        {/* 🚀 INPUT */}
+        <div
+          className="
+            border-t
+            border-white/10
 
-          <div className="max-w-[1200px] mx-auto">
+            bg-white/[0.03]
 
-            <InputBox
-              onSend={sendPrompt}
-              disabled={loading}
-            />
+            backdrop-blur-xl
+          "
+        >
 
-          </div>
+          <InputBox
+            onSend={sendPrompt}
+            disabled={loading}
+          />
 
         </div>
 
