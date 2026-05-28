@@ -8,13 +8,13 @@ function Message({ role, text }) {
   // FORMAT RESPONSE
   const formattedText = text
 
-    // Remove excessive spacing
+    // REMOVE EXCESSIVE SPACING
     .replace(/\n{4,}/g, "\n\n")
 
-    // Convert bullet symbol to markdown bullets
+    // CONVERT BULLETS
     .replace(/•/g, "-")
 
-    // Auto-fix repeated numbering
+    // FIX REPEATED NUMBERING
     .replace(
       /^1\.\s/gm,
       (() => {
@@ -61,49 +61,49 @@ function Message({ role, text }) {
 
                   // PARAGRAPH
                   p: ({ children }) => (
-                    <p className="text-gray-200 leading-8 mb-4 text-[16px]">
+                    <p className="text-gray-200 leading-8 mb-3 text-[16px]">
                       {children}
                     </p>
                   ),
 
                   // H1
                   h1: ({ children }) => (
-                    <h1 className="text-3xl font-bold text-white mt-8 mb-5">
+                    <h1 className="text-3xl font-bold text-white mt-7 mb-4">
                       {children}
                     </h1>
                   ),
 
                   // H2
                   h2: ({ children }) => (
-                    <h2 className="text-2xl font-semibold text-cyan-300 mt-8 mb-4">
+                    <h2 className="text-2xl font-semibold text-cyan-300 mt-6 mb-3">
                       {children}
                     </h2>
                   ),
 
                   // H3
                   h3: ({ children }) => (
-                    <h3 className="text-xl font-semibold text-blue-300 mt-6 mb-3">
+                    <h3 className="text-xl font-semibold text-blue-300 mt-5 mb-2">
                       {children}
                     </h3>
                   ),
 
                   // ORDERED LIST
                   ol: ({ children }) => (
-                    <ol className="list-decimal pl-6 mt-4 mb-6 space-y-3 marker:text-cyan-300 marker:font-semibold">
+                    <ol className="list-decimal pl-6 mt-3 mb-4 space-y-1 marker:text-cyan-300 marker:font-semibold">
                       {children}
                     </ol>
                   ),
 
                   // UNORDERED LIST
                   ul: ({ children }) => (
-                    <ul className="list-disc pl-6 mt-3 mb-5 space-y-2 marker:text-cyan-300">
+                    <ul className="list-disc pl-6 mt-2 mb-3 space-y-1 marker:text-cyan-300">
                       {children}
                     </ul>
                   ),
 
                   // LIST ITEM
                   li: ({ children }) => (
-                    <li className="text-gray-200 leading-8 text-[16px]">
+                    <li className="text-gray-200 leading-7 text-[16px]">
                       {children}
                     </li>
                   ),
@@ -117,12 +117,12 @@ function Message({ role, text }) {
 
                   // HORIZONTAL RULE
                   hr: () => (
-                    <div className="my-7 border-t border-white/10" />
+                    <div className="my-6 border-t border-white/10" />
                   ),
 
                   // BLOCKQUOTE
                   blockquote: ({ children }) => (
-                    <blockquote className="border-l-4 border-cyan-400 pl-4 italic text-gray-300 my-5">
+                    <blockquote className="border-l-4 border-cyan-400 pl-4 italic text-gray-300 my-4">
                       {children}
                     </blockquote>
                   ),
@@ -136,14 +136,14 @@ function Message({ role, text }) {
 
                   // CODE BLOCK
                   pre: ({ children }) => (
-                    <pre className="bg-black/40 border border-white/10 rounded-2xl p-4 overflow-x-auto my-6">
+                    <pre className="bg-black/40 border border-white/10 rounded-2xl p-4 overflow-x-auto my-5">
                       {children}
                     </pre>
                   ),
 
                   // TABLE
                   table: ({ children }) => (
-                    <div className="overflow-x-auto my-7 rounded-2xl border border-white/10">
+                    <div className="overflow-x-auto my-6 rounded-2xl border border-white/10">
                       <table className="w-full border-collapse">
                         {children}
                       </table>
